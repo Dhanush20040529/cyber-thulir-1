@@ -1,0 +1,562 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+     scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Audiowide', cursive;
+    font-family: 'Rajdhani', sans-serif;  
+   
+     
+
+}
+
+main {
+    max-width: 100%;
+    min-height: 100%;
+}
+
+/* .header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    margin-top: 2rem;
+    
+} */
+
+.desktop-nav{
+    position: fixed;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    height: 9%;
+    align-items: center;
+    background-color: rgb(198, 195, 195);
+    backdrop-filter: blur(100px);
+    border-radius: 35px;
+    padding: 0 2rem;
+    z-index: 1000;
+    
+    
+}
+
+.mobile-nav {
+    display: none;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    list-style: none;
+    color: #090909;
+    font-size: 1.2rem;
+     position: relative;
+  display: inline-block;
+}
+
+
+
+.nav-links li a::after,
+.nav-links li a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #171717, #7d8282);
+  bottom: -5px;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease-out;
+}
+
+.nav-links li a::before {
+  top: -5px;
+  transform-origin: left;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a:hover::before {
+  transform: scaleX(1);
+}
+
+
+
+
+
+.hero{
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    display: flex;
+    justify-content:right;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    background: linear-gradient(to right, rgba(10, 25, 47, 0) 60%, #0a192f 100%),
+                url('image/ChatGPT\ Image\ Aug\ 21\,\ 2025\,\ 11_46_52\ AM.png') no-repeat center center;
+    background-size: cover;
+    position: relative;
+   
+    
+    
+}
+
+.blur {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0,0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero-content {
+    margin-right: 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: white;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 2rem;
+}
+
+.shield {
+    position: absolute;
+    top: 70%;
+    left: 35.5%;
+    box-shadow: rgba(39, 38, 38, 0.35) 0px 5px 15px;
+    clip-path: polygon(3% 0, 97% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%);
+    transition: all 0.7s linear;
+    transform: rotateX(-45deg);
+    z-index: 3;
+  
+}
+
+.about-vission {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    /* width: 100%;
+    height: 100vh; */
+    padding: 2rem;
+    background-color: #141c28;
+    
+    z-index: 0;
+    justify-content: center;
+
+}
+
+.team {
+    display: flex;
+    flex-direction: row;
+    align-items:end;
+    
+}
+
+.team-img-2 {
+    margin-left: 1rem;
+
+}
+
+
+.about-us{
+ 
+    padding: 1rem;
+    clip-path: polygon(70% 0, 100% 55%, 100% 100%, 0 100%, 0 0);
+    background-color:rgb(200, 0, 40);
+    color: aliceblue;
+    border-radius: 20px;
+    z-index: 2;
+    /* height: 60%; */
+    margin-top: 2rem;
+    flex-basis: 45%;
+}
+
+.about h2 {
+    font-size: 2rem
+}
+
+.about-us p {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    transform: scale(0.9);
+    margin-right: 2rem;
+   
+}
+
+.vission {
+  
+    padding: 1rem;
+    clip-path: polygon(27% 0%, 100% 0, 100% 100%, 0 100%, 0 55%);
+     background-color: rgb(0, 90, 200);
+    color: aliceblue;
+    border-radius: 20px;
+    /* height: 60%; */
+    margin-top: 2rem;
+    flex-basis: 45%;
+}
+
+.vission h2 {
+    text-align: end;
+}
+
+.vission p {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    transform: scale(0.9);
+    margin-left: 4rem;
+   text-align: right;
+}
+
+.about-game {
+    display: flex;
+    flex-direction: row;
+    background-color: #141c28;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    
+
+}
+
+.about-game-container{
+    width: 85vw;  
+ /*   background-image: url(image/CyberThulir\ Workspace\ in\ Action.png);
+   background-size: cover; */
+    display: flex;
+    flex-direction: row;
+    min-height: 80vh;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    
+
+   
+
+}
+
+/* .blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90vw;
+    height: 80vh;
+    background-color: rgba(0, 0, 0,0.6);
+    z-index: 30;
+} */
+
+.about-game-content {
+    flex-basis: 30%;
+     background-color: #242222;
+    z-index: 2;
+    
+    color: rgb(169, 170, 185);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem;
+   
+
+}
+
+.about-game-content h1 {
+    font-size: 2.5rem;
+}
+
+.about-game-content p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+}
+
+.waitlist-btn {
+    background-color: #141c28;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     gap: 2rem;
+    justify-content: center;
+    padding: 2rem 2rem 5rem 2rem;
+   
+}
+
+.waitlist-btn p {
+    color:rgb(23, 255, 23); 
+    font-size: 1.3rem;
+    text-align: center;
+   
+}
+
+.waitlist-btn a {
+    width: 250px;
+    height: 80px;
+    background-color: rgb(23, 255, 23);
+    text-decoration: none;
+    color: #090909;
+    font-size: 1.5rem;
+ 
+    text-align: center;
+    align-content: center;
+   
+
+}
+
+.a {
+    
+    width: 180px;
+    height: 180px;
+    background-color: aqua;
+    
+}
+
+/* || Mobile Responsive Design || */
+
+@media screen and (max-width:475px) {
+
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+
+.mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 4rem;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    
+    
+
+}
+
+.open-menu-btn p,
+.close-menu-btn p {
+    color: #090909;
+    font-size: 1.4rem;
+    margin: 1rem;
+}
+
+.mobile-nav-links {
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    right: 0;
+    top: 62px;
+    background-color: white;
+    width: 50%;
+    height: 150px;
+    
+
+}
+
+.mobile-nav-links li {
+    list-style: none;
+    border-bottom: 2px solid black;
+}
+
+
+
+.mobile-nav-links a {
+    text-decoration: none;
+    color: #090909;
+}
+
+.close-menu-btn{
+    display: none;
+}
+
+.desktop-nav {
+    display: none;
+}
+
+body {
+   background-color: #141c28;
+}
+
+.blur {
+    display: none;
+}
+
+.hero { 
+    background: none;
+     justify-content:center;
+     width: 100vw;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 1rem;
+    margin-right: 0;
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+}
+
+.hero-content p {
+    font-size: 1rem;
+}
+
+.shield {
+ display: block;
+
+  transform: rotateX(0deg);
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.shield img {
+    transform: scale(0.7);
+}
+
+.about-vission {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+.about-us {
+    clip-path: none;
+    flex-basis: 100%;
+}
+
+.about-us h2 {
+    font-size: 1.2rem;
+}
+
+.about-us p {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-right: 0;
+}
+
+.vission {
+    clip-path: none;
+    flex-basis: 100%;
+   
+}
+
+.vission h2 {
+    font-size: 1.2rem;
+     text-align: left;
+}
+
+.vission p {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-right: 0;
+    text-align:start;
+    margin-left: 0;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    
+}
+.team-img,
+.team-img-2 {
+    display: none;
+}
+
+.about-game {
+    width: 100vw;
+}
+
+.about-game-container {
+   /*  display: grid;
+    grid-template-areas: "a a"
+                         "b c"; */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.about-game-c {
+    display: grid;
+    grid-area: a;
+}
+
+.about-us-content {
+    grid-area: b;
+}
+
+.vision-content {
+    grid-area: c;
+ 
+}
+
+.about-game-content {
+    padding: 1rem;
+}
+
+.about-game-content h1 {
+    font-size: 1.5rem;
+}
+
+.about-game-content p {
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+
+
+    
+}
+
+
+
+

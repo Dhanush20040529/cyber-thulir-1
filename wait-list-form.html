@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberSec Waitlist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+       box-sizing: border-box;
+        margin: 0; 
+        padding: 0; 
+      }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+
+    .container {
+      background-color: #1e293b;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #3b82f6;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #3b82f6;
+      border-radius: 6px;
+      background-color: #1e293b;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #0068c3;
+      box-shadow: 0 0 6px rgba(34, 170, 197, 0.4);
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3b82f6;
+      color: #e2e8f0;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    .hidden { display: none; }
+
+    .message {
+      padding: 14px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-align: center;
+      display: none;
+    }
+
+    #successMessage {
+      background-color: #22c55e;
+      color: #0f172a;
+    }
+
+    #errorMessage {
+      background-color: #ef4444;
+      color: #fef2f2;
+    }
+
+    @media (max-width: 500px) {
+      .container { padding: 30px; }
+      h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Join the Cyber Waitlist</h2>
+    
+    <div id="successMessage" class="message"></div>
+    <div id="errorMessage" class="message"></div>
+
+    <form id="waitlistForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="role">You are a:</label>
+      <select id="role" name="role" required>
+        <option value="">-- Select --</option>
+        <option value="student">Student</option>
+        <option value="professional">Professional</option>
+      </select>
+
+      <div id="studentFields" class="hidden">
+        <label for="college">College Name:</label>
+        <input type="text" id="college" name="college">
+
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department">
+
+        <label for="year">Year:</label>
+        <input type="text" id="year" name="year">
+      </div>
+
+      <div id="professionalFields" class="hidden">
+        <label for="company">Company Name:</label>
+        <input type="text" id="company" name="company">
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city">
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbLTwJMwpE2E4RaA3G6YWKQXhhnj3VhW8",
+      authDomain: "cyber-thulir-wait-list.firebaseapp.com",
+      projectId: "cyber-thulir-wait-list",
+      storageBucket: "cyber-thulir-wait-list.firebasestorage.app",
+      messagingSenderId: "920655006964",
+      appId: "1:920655006964:web:c533be54239c4266c562a1",
+      measurementId: "G-S6YBCV9XXC"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const roleSelect = document.getElementById("role");
+    const studentFields = document.getElementById("studentFields");
+    const professionalFields = document.getElementById("professionalFields");
+    const successDiv = document.getElementById("successMessage");
+    const errorDiv = document.getElementById("errorMessage");
+
+    roleSelect.addEventListener("change", () => {
+      studentFields.classList.toggle("hidden", roleSelect.value !== "student");
+      professionalFields.classList.toggle("hidden", roleSelect.value !== "professional");
+    });
+
+    document.getElementById("waitlistForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      successDiv.style.display = "none";
+      errorDiv.style.display = "none";
+
+      const formData = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        role: roleSelect.value
+      };
+
+      let valid = true;
+      if (formData.role === "student") {
+        formData.college = document.getElementById("college").value.trim();
+        formData.department = document.getElementById("department").value.trim();
+        formData.year = document.getElementById("year").value.trim();
+        if (!formData.college || !formData.department || !formData.year) valid = false;
+      } else if (formData.role === "professional") {
+        formData.company = document.getElementById("company").value.trim();
+        formData.city = document.getElementById("city").value.trim();
+        if (!formData.company || !formData.city) valid = false;
+      } else {
+        valid = false;
+      }
+
+      if (!valid) {
+        errorDiv.textContent = "❌ Please fill in all required fields!";
+        errorDiv.style.display = "block";
+        return;
+      }
+
+      try {
+        await db.collection("waitlist").add({
+          ...formData,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        successDiv.textContent = `✅ Thank you ${formData.name}, your details have been successfully submitted!`;
+        successDiv.style.display = "block";
+
+        setTimeout(() => { successDiv.style.display = "none"; }, 5000);
+
+        e.target.reset();
+        studentFields.classList.add("hidden");
+        professionalFields.classList.add("hidden");
+
+      } catch (err) {
+        errorDiv.textContent = "❌ Something went wrong. Please try again.";
+        errorDiv.style.display = "block";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
